@@ -51,13 +51,22 @@ public class TestMain {
             JobDetail _job = newJob(TestJob1.class)
                     .withIdentity("myJob"+i, "group1")
                     .build();
-            Trigger   _trigger = newTrigger()
-                    .withIdentity("trigger"+i, "group1")
-                    .withSchedule(cronSchedule("0/20 * * * * ?"))
-                    .forJob("myJob"+i, "group1")
-                    .build();
+            Trigger   _trigger;
+            if(i==0){
+                _trigger =  newTrigger()
+                        .withIdentity("trigger"+i, "group1")
+                        .withSchedule(cronSchedule("0/20 * * * * ?").withMisfireHandlingInstructionDoNothing())
+                        .forJob("myJob"+i, "group1")
+                        .build();
+            }else{
+                _trigger =  newTrigger()
+                        .withIdentity("trigger"+i, "group1")
+                        .withSchedule(cronSchedule("0/20 * * * * ?"))
+                        .forJob("myJob"+i, "group1")
+                        .build();
+            }
             sched.scheduleJob(_job, _trigger);
-            Thread.sleep(20000l);
+//            Thread.sleep(20000l);
         }
 
     }

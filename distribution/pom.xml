@@ -21,10 +21,6 @@
     <skipJavadoc>true</skipJavadoc>
     <skipSources>true</skipSources>
   </properties>
-  
-  <modules>
-    <module>examples</module>
-  </modules>
 
   <dependencies>
     <dependency>

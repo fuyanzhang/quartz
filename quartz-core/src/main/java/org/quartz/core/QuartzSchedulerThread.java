@@ -425,6 +425,7 @@ public class QuartzSchedulerThread extends Thread {
                         // scheduled very soon
                         if (!isScheduleChanged()) {
                           sigLock.wait(timeUntilContinue);
+
                         }
                       }
                     } catch (InterruptedException ignore) {

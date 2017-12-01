@@ -74,6 +74,6 @@ public interface Job {
      *           if there is an exception while executing the job.
      */
     void execute(JobExecutionContext context)
-        throws JobExecutionException;
+            throws JobExecutionException, InterruptedException;
 
 }

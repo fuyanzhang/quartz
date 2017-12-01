@@ -15,9 +15,11 @@ public class TestJob1 implements Job {
     public void execute(JobExecutionContext context) throws JobExecutionException, InterruptedException {
 //        System.out.println("HAHA----"+context.getJobDetail().getKey()+"////////////"+context.getFireTime());
         System.out.println(context.getJobDetail().getKey()+"紧张的处理任务中。。。"+context.getFireTime());
-        Thread.sleep(10000l);
-       if( context.getJobDetail().getKey().equals("myJob10")){
-            throw new JobExecutionException("failed");
-       }
+        Thread.sleep(100l);
+//       if( context.getJobDetail().getKey().equals("myJob10")){
+//            throw new JobExecutionException("failed");
+//       }
+//        throw new JobExecutionException("任务执行失败");
+//        throw new RuntimeException();
     }
 }

@@ -3241,6 +3241,7 @@ public abstract class JobStoreSupport implements JobStore, Constants {
                 Integer.MAX_VALUE;
             
             if (misfireCount == 0) {
+                System.out.println("Found 0 triggers that missed their scheduled fire-time");
                 getLog().debug(
                     "Found 0 triggers that missed their scheduled fire-time.");
             } else {
@@ -4012,7 +4013,6 @@ public abstract class JobStoreSupport implements JobStore, Constants {
         public void run() {
             
             while (!shutdown) {
-
                 long sTime = System.currentTimeMillis();
 
                 RecoverMisfiredJobsResult recoverMisfiredJobsResult = manage();
@@ -4033,12 +4033,12 @@ public abstract class JobStoreSupport implements JobStore, Constants {
                             timeToSleep = Math.max(getDbRetryInterval(), timeToSleep);
                         }
                     }
-                    
                     try {
                         Thread.sleep(timeToSleep);
                     } catch (Exception ignore) {
                     }
                 }//while !shutdown
+
             }
         }
     }
