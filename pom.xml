@@ -59,6 +59,7 @@
     <module>terracotta</module>
     <module>quartz</module>
     <module>quartz-study</module>
+      <module>../quartz-extend</module>
   </modules>
 
   <properties>

@@ -19,8 +19,7 @@ public class TestMain {
     public static void main(String[] args) throws SchedulerException, InterruptedException {
         SchedulerFactory sf = new StdSchedulerFactory();
         Scheduler sched = sf.getScheduler();
-
-        sched.start();
+//        sched.start();
 //        JobDetail job = newJob(TestJob1.class)
 //                .withIdentity("myJob1", "group1")
 //                .build();
@@ -51,6 +50,7 @@ public class TestMain {
             JobDetail _job = newJob(TestJob1.class)
                     .withIdentity("myJob"+i, "group1")
                     .build();
+            _job.getJobDataMap().put("hello","world");
             Trigger   _trigger;
             if(i==0){
                 _trigger =  newTrigger()
