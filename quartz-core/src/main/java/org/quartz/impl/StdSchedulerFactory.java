@@ -935,35 +935,6 @@ public class StdSchedulerFactory implements SchedulerFactory {
 
         // Set up any DataSources
         // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        //如果是zk方式持久化，则获取zk客户端
-        if (js instanceof JobZkStoreSupport) {
-            RetryPolicy retryPolicy = null;
-            CuratorFrameworkFactory.Builder builder = CuratorFrameworkFactory.builder();
-            String url = cfg.getStringProperty(PROP_ZOOKEEPER_URL);
-            builder.connectString(url);
-            String retryPolicyStr = cfg.getStringProperty(PROP_ZOOKEEPER_RETRYPOLICY);
-            if (null != retryPolicyStr && !("".equalsIgnoreCase(retryPolicyStr.trim()))) {
-                try {
-                    retryPolicy = (RetryPolicy) loadHelper.loadClass(retryPolicyStr).newInstance();
-                } catch (InstantiationException e) {
-                    e.printStackTrace();
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                retryPolicy = new ExponentialBackoffRetry(1000, 3);
-            }
-            builder.retryPolicy(retryPolicy);
-            int sessionTimeout = cfg.getIntProperty(PROP_ZOOKEEPER_SESSIONTIMEOUT, 1000);
-            builder.sessionTimeoutMs(sessionTimeout);
-            String namespace = cfg.getStringProperty(PROP_ZOOKEEPER_NAMESPACE, "/quartz/job");
-            builder.namespace(namespace);
-            client = builder.build();
-            client.start();
-            ((JobZkStoreSupport) js).setClient(client);
-        }
         String[] dsNames = cfg.getPropertyGroups(PROP_DATASOURCE_PREFIX);
         for (int i = 0; i < dsNames.length; i++) {
             PropertiesParser pp = new PropertiesParser(cfg.getPropertyGroup(
